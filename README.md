@@ -1,0 +1,2 @@
+# paginator
+django-paginator
