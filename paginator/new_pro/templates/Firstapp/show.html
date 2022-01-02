@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}
+    <title>Show Employee Page</title>
+{% endblock %}
+{% block content %}
+    <h1 style="text-align:center;color:cyan">Employee Details</h1>
+    <table class="table table-bordered" style="width:90%;margin:auto">
+        <tr >
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>City</th>
+            <th>Marks</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for emp in page_obj %}
+            <tr >
+                <td>{{emp.id}}</td>
+                <td>{{emp.fname}}</td>
+                <td>{{emp.lname}}</td>
+                <td>{{emp.city}}</td>
+                <td><a href="{% url 'update' emp.id %}"><button class="btn btn-success">Update</button></a></td>
+                <td><a href="{% url 'delete' emp.id %}"><button class="btn btn-danger">Delete</button></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="pagination" >
+    <span class="step-links" style="margin:auto" >
+        {% if page_obj.has_previous %}
+            <a  href="?page=1">first</a>
+            <a  href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a  href="?page={{ page_obj.next_page_number }}">next</a>
+            <a  href="?page={{ page_obj.paginator.num_pages }}">last</a>
+        {% endif %}
+    </span>
+</div>
+
+    <br>
+    <a  href="{% url 'employee' %}"><button class="btn btn-primary" style="margin-left:4.5%">Add Employee</button></a>
+{% endblock %}
